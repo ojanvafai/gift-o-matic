@@ -9,6 +9,10 @@ handlers:
   static_dir: bower_components
   secure: always
 
+- url: /model
+  static_dir: model
+  secure: always
+
 - url: /ui
   static_dir: ui
   secure: always
