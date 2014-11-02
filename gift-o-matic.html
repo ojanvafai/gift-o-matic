@@ -2,11 +2,35 @@
 <head>
   <script src="bower_components/react/react.js"></script>
   <script src="bower_components/react/JSXTransformer.js"></script>
+
+  <script src="ui/item.js" type="text/jsx"></script>
+  <script src="ui/itemlist.js" type="text/jsx"></script>
+
+  <script>
+  function ItemData(key, quantityRequested, owner, title, description, links, photos, comments, purchasers) {
+    this.key = key;
+    this.quantityRequested = quantityRequested || 0;
+    this.owner = owner || '';
+    this.title = title || '';
+    this.description = description || '';
+    this.links = links || [];
+    this.photos = photos || [];
+    this.comments = comments || [];
+    this.purchasers = purchasers || [];
+  }
+
+  var theDataBeHere = [
+    new ItemData('id1', 1, 'ojan'),
+    new ItemData('id2', 2, 'jewree'),
+  ];
+  </script>
 </head>
-<div id="example"></div>
+
+<div id="root"></div>
+
 <script type="text/jsx">
   React.render(
-    <h1>Hello, world!</h1>,
-    document.getElementById('example')
+    <ItemList data={theDataBeHere} />,
+    document.getElementById('root')
   );
 </script>

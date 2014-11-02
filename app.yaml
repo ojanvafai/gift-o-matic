@@ -9,6 +9,10 @@ handlers:
   static_dir: bower_components
   secure: always
 
+- url: /ui
+  static_dir: ui
+  secure: always
+
 - url: /.*
   static_files: gift-o-matic.html
   upload: gift-o-matic.html
