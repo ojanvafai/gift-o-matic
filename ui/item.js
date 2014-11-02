@@ -16,7 +16,7 @@ var Item = React.createClass({
         <div className="expandButton" onClick={this.handleClick}>{detailsText}</div>
         <div className="itemContent">
           <div className="row">
-            <div className="owner">{this.props.data.owner}</div>
+            <div className="owner">{this.props.data.owner} wants</div>
             <div className="title">{this.props.data.title}</div>
             <div className="description">{this.props.data.description}</div>
           </div>
