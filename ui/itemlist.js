@@ -1,20 +1,12 @@
 var ItemList = React.createClass({
   render: function() {
-    var style = {
-      width: '100%',
-    }
     return (
-      <table style={style}>
-        <tr>
-          <th>owner</th>
-          <th>quantityRequested</th>
-          <th>title</th>
-          <th>description</th>
-          <th>links</th>
-          <th>photos</th>
-          <th>comments</th>
-          <th>purchasers</th>
-        </tr>
+      <div>
+        <div className="header row">
+          <div className="owner"></div>
+          <div className="title">Item</div>
+          <div className="description">Notes</div>
+        </div>
         {
           this.props.data.map(function(itemData) {
             return (
@@ -22,7 +14,7 @@ var ItemList = React.createClass({
             );
           })
         }
-      </table>
+      </div>
     );
   }
 });
