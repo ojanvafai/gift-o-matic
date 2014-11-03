@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "core-component-page": "Polymer/core-component-page#^0.4.0",
-    "react": "~0.12.0"
+    "react": "~0.12.0",
+    "sugar": "~1.4.1"
   }
 }

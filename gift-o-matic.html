@@ -3,6 +3,8 @@
   <script src="bower_components/react/react.js"></script>
   <script src="bower_components/react/JSXTransformer.js"></script>
 
+  <script src="bower_components/sugar/release/sugar-full.development.js"></script>
+
   <script src="model/ItemData.js"></script>
 
   <script src="ui/Item.js" type="text/jsx"></script>
@@ -67,7 +69,8 @@
       padding: 5px;
     }
     .itemContent > *,
-    .details > * {
+    .details > *,
+    .owner-list {
       margin-bottom: 10px;
     }
     .expandButton {
@@ -78,16 +81,41 @@
     .itemContent {
       flex: 1;
     }
+    .title {
+      font-weight: bold;
+      display: block;
+    }
   </style>
 </head>
 
 <div id="root"></div>
 
 <script type="text/jsx">
+  function groupByOwner(data) {
+    var groupedData = {};
+    data.forEach(function(itemData) {
+      var owner = itemData.owner;
+      if (!groupedData[owner])
+        groupedData[owner] = [];
+      groupedData[owner].push(itemData);
+    });
+    return groupedData;
+  }
+
+  var groupedData = groupByOwner(theDataBeHere);
+
+  var itemLists = []
+  Object.keys(groupedData, function(key, value) {
+    itemLists.push(
+      <div className="owner-list">
+        <div className="title">List for {key}</div>
+        <ItemList data={value} />
+      </div>
+    );
+  });
+
   React.render(
-    <div>
-      <ItemList data={theDataBeHere} />
-    </div>,
+    <div>{itemLists}</div>,
     document.getElementById('root')
   );
 </script>
