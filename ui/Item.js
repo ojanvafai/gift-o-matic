@@ -72,11 +72,22 @@ var Item = React.createClass({
     if (this.state.editing)
       return <ItemForm data={this.props.data} onSaveItem={this.handleSave} onClose={this.handleClose} />
 
-    if (!this.isFullyPurchased())
-      var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
+    var currentUser = this.props.users.current_user;
+    var isForCurrentUser = this.props.data.recipients.some(function(recipient) {
+      return recipient == currentUser;
+    });
 
-    if (this.currentUserIsBuying())
-      var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
+    if (!isForCurrentUser) {
+      if (!this.isFullyPurchased())
+        var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
+
+      if (this.currentUserIsBuying())
+        var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
+
+      var purchasers = this.props.data.purchasers.map(function(purchaser) {
+        return <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
+      });
+    }
 
     return <div className="item">
         <div className="itemContent">
@@ -88,17 +99,13 @@ var Item = React.createClass({
 
           <div className="details">
             <div className="row">
-              <div className="owner">Quantity: {this.props.data.quantity}</div>
+              <div className="recipients">Quantity: {this.props.data.quantity}</div>
               <div className="description">{
                 this.props.data.links.map(function(link) {
                   return <div><a href={link}>link</a></div>
                 })
               }</div>
-              <div className="notes">{
-                this.props.data.purchasers.map(function(purchaser) {
-                  return <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
-                })
-              }</div>
+              <div className="notes">{purchasers}</div>
             </div>
             <div>{
               this.props.data.photos.map(function(url) {
