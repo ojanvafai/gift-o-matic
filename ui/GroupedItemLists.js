@@ -4,10 +4,10 @@ function groupByOwner(data) {
     return groupedData;
 
   data.forEach(function(itemData) {
-    var owner = itemData.owner;
-    if (!groupedData[owner])
-      groupedData[owner] = [];
-    groupedData[owner].push(itemData);
+    var owners = itemData.owners.join(' & ');
+    if (!groupedData[owners])
+      groupedData[owners] = [];
+    groupedData[owners].push(itemData);
   });
   return groupedData;
 }
@@ -20,7 +20,7 @@ var GroupedItemLists = React.createClass({
     var itemLists = []
     Object.keys(groupedData, function(key, value) {
       itemLists.push(
-        <div className="owner-list">
+        <div className="owners-list">
           <div className="title">List for {key}</div>
           <ItemList data={value} />
         </div>
@@ -28,6 +28,6 @@ var GroupedItemLists = React.createClass({
     });
     return <div>
       {itemLists}
-    </div>
+    </div>;
   }
 });

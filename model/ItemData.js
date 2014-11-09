@@ -1,7 +1,7 @@
-function ItemData(key, quantityRequested, owner, title, description, links, photos, comments, purchasers) {
+function ItemData(key, quantityRequested, owners, title, description, links, photos, comments, purchasers) {
   this.key = key;
   this.quantityRequested = quantityRequested || 0;
-  this.owner = owner || '';
+  this.owners = owners || [];
   this.title = title || '';
   this.description = description || '';
   this.links = links || [];

@@ -10,8 +10,9 @@ var ItemForm = React.createClass({
     this.setState({expanded: true});
   },
   handleSave: function(event) {
+    // TODO: Support multiple owners
     this.props.onAdd(
-        getValue(this.refs.owner),
+        [getValue(this.refs.owner)],
         getValue(this.refs.quantity),
         getValue(this.refs.title),
         getValue(this.refs.link),

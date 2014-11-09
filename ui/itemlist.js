@@ -3,7 +3,7 @@ var ItemList = React.createClass({
     return (
       <div>
         <div className="header row">
-          <div className="owner"></div>
+          <div className="owners"></div>
           <div className="title">Item</div>
           <div className="description">Notes</div>
         </div>

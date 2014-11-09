@@ -6,7 +6,7 @@ var GiftOMatic = React.createClass({
   },
   loadDataFromServer: function() {
     var theDataBeHere = [
-      new ItemData('id1', 2, 'ojan', 'a million dollars',
+      new ItemData('id1', 2, ['ojan'], 'a million dollars',
           'financial independence, here i come!',
           [
             'http://www.amazon.com/Set-100-Million-Dollar-Bills/dp/B00B50PJVE/ref=sr_1_cc_1?s=aps&ie=UTF8&qid=1414893469&sr=1-1-catcorr&keywords=one+million+dollars',
@@ -26,8 +26,8 @@ var GiftOMatic = React.createClass({
             {purchaser: 'your mom', quantity: 1},
           ]
           ),
-      new ItemData('id2', 1, 'jewree', 'a house'),
-      new ItemData('id3', 1, 'jewree', 'a green dress'),
+      new ItemData('id2', 1, ['ojan', 'jewree'], 'a house'),
+      new ItemData('id3', 1, ['jewree'], 'a green dress'),
     ];
     this.setState({data: theDataBeHere});
 
@@ -35,11 +35,11 @@ var GiftOMatic = React.createClass({
       this.setState({users: users});
     }.bind(this));
   },
-  saveItem: function(owner, quantity, title, link, description) {
+  saveItem: function(owners, quantity, title, link, description) {
     var newData = this.state && this.state.data;
     if (!newData)
       newData = []
-    newData.push(new ItemData(ids++, quantity, owner, title, description, [link]));
+    newData.push(new ItemData(ids++, quantity, owners, title, description, [link]));
     this.setState({data: newData});
   },
   componentDidMount: function() {
