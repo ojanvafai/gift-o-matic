@@ -1,6 +1,9 @@
 var ids = 0;
 
 var GiftOMatic = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
   loadDataFromServer: function() {
     var theDataBeHere = [
       new ItemData('id1', 2, 'ojan', 'a million dollars',
@@ -43,12 +46,15 @@ var GiftOMatic = React.createClass({
     this.loadDataFromServer();
   },
   render: function() {
+    // TODO: Pass this.state.users.list down to ItemForm so that it can have
+    // a dropdown of users instead of an input box.
+    console.log(this.state.users && this.state.users.list);
     return <div>
       <div className="flex">
         <div className="flexOne"><NewItemForm onAdd={this.saveItem} /></div>
-        <Login users={this.state && this.state.users} />
+        <Login users={this.state.users} />
       </div>
-      <GroupedItemLists data={this.state && this.state.data} />
+      <GroupedItemLists data={this.state.data} />
     </div>;
   },
 });

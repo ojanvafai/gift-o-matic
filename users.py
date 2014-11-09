@@ -14,6 +14,19 @@ class Users(webapp2.RequestHandler):
     result_json['login_url'] = users.create_login_url('/')
     result_json['logout_url'] = users.create_logout_url('/')
 
+    # TODO: Actually store the list of users in the datastore and let you
+    # add remove them and to have groups so that people can use this for different
+    # things (e.g. thanksgiving, christmas, wedding, etc).
+    result_json['list'] = [
+      'jparent@gmail.com',
+      'ojan.vafai@gmail.com',
+      'sharon.d.parent@gmail.com',
+      'lisparent@gmail.com',
+      'trickski2@gmail.com',
+      'cwalton505@gmail.com',
+      'grammy pat',
+    ]
+
     if user:
       result_json['current_user'] = user.email()
 
