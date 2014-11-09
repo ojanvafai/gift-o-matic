@@ -1,5 +1,4 @@
 function groupByOwner(data) {
-  console.log('group', data);
   var groupedData = {};
   if (!data)
     return groupedData;
@@ -27,7 +26,6 @@ var GroupedItemLists = React.createClass({
         </div>
       );
     });
-    console.log(itemLists);
     return <div>
       {itemLists}
     </div>

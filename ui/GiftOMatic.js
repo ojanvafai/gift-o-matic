@@ -26,8 +26,11 @@ var GiftOMatic = React.createClass({
       new ItemData('id2', 1, 'jewree', 'a house'),
       new ItemData('id3', 1, 'jewree', 'a green dress'),
     ];
-    console.log('setState');
     this.setState({data: theDataBeHere});
+
+    net.json('/users').then(function(users) {
+      this.setState({users: users});
+    }.bind(this));
   },
   saveItem: function(owner, quantity, title, link, description) {
     var newData = this.state && this.state.data;
@@ -41,8 +44,11 @@ var GiftOMatic = React.createClass({
   },
   render: function() {
     return <div>
-      <NewItemForm onAdd={this.saveItem} />
+      <div className="flex">
+        <div className="flexOne"><NewItemForm onAdd={this.saveItem} /></div>
+        <Login users={this.state && this.state.users} />
+      </div>
       <GroupedItemLists data={this.state && this.state.data} />
-    </div>
+    </div>;
   },
 });
