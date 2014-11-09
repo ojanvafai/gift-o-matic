@@ -37,6 +37,10 @@ handlers:
   script: items.app
   secure: always
 
+- url: /delete-item
+  script: items.app
+  secure: always
+
 - url: /.*
   static_files: gift-o-matic.html
   upload: gift-o-matic.html

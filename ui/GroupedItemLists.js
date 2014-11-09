@@ -22,7 +22,7 @@ var GroupedItemLists = React.createClass({
       itemLists.push(
         <div className="owners-list">
           <div className="title">List for {key}</div>
-          <ItemList onSaveItem={me.props.onSaveItem} data={value} />
+          <ItemList onSaveItem={me.props.onSaveItem} onDeleteItem={me.props.onDeleteItem} data={value} />
         </div>
       );
     });

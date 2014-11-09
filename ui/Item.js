@@ -10,7 +10,7 @@ var Item = React.createClass({
   },
   handleDeleteClick: function(event) {
     if(confirm('Do you really want to delete?')) {
-      // Remove by key
+      this.props.onDeleteItem(this.props.data.key);
     }
   },
   handleSave: function(itemData) {

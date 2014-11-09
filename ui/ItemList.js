@@ -11,7 +11,7 @@ var ItemList = React.createClass({
         {
           this.props.data.map(function(itemData) {
             return (
-              <Item onSaveItem={me.props.onSaveItem} key={itemData.key} data={itemData} />
+              <Item onSaveItem={me.props.onSaveItem} onDeleteItem={me.props.onDeleteItem} key={itemData.key} data={itemData} />
             );
           })
         }

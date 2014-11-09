@@ -28,11 +28,12 @@ class Item(ndb.Model):
     return out
 
 
-def serve_items_json(response, item_to_include=None):
+def serve_items_json(response, item_to_include=None, key_to_exclude=None):
   response.headers['Content-Type'] = 'application/json'
   items = []
   for item in Item.query():
-    if not item_to_include or item.key != item_to_include.key:
+    if ((not item_to_include or item.key != item_to_include.key) and
+        item.key != key_to_exclude):
       items.append(item.to_json())
 
   if item_to_include:
@@ -43,15 +44,31 @@ def serve_items_json(response, item_to_include=None):
   }))
 
 
+class DeleteItem(webapp2.RequestHandler):
+  def post(self):
+    key = self.request.get('key')
+    if not key:
+      # TODO: Make this a 404
+      self.response.out.write('"key" field is required.')
+      return
+
+    ndb_key = ndb.Key(urlsafe=key)
+    ndb_key.delete()
+
+    # Appengine queries are only eventually consistent,
+    # so we need to exclude the item we just delete.
+    serve_items_json(self.response, key_to_exclude=ndb_key)
+
+
 class SaveItem(webapp2.RequestHandler):
   def post(self):
-    item = Item()
-
     raw_data = self.request.get('data')
     if not raw_data:
       # TODO: Make this a 404
       self.response.out.write('"data" field is required.')
       return
+
+    item = Item()
 
     data = json.loads(raw_data)
 
@@ -62,7 +79,13 @@ class SaveItem(webapp2.RequestHandler):
       if old_item:
         item = old_item
 
-    item.quantity = int(data.get('quantity', 0))
+    quantity_string = data.get('quantity', 0)
+    try:
+      quantity = int(quantity_string)
+    except ValueError as e:
+      quantity = 0
+
+    item.quantity = quantity
     item.recipients = data.get('recipients', [])
     item.description = data.get('description', '')
     item.notes = data.get('notes', '')
@@ -75,7 +98,7 @@ class SaveItem(webapp2.RequestHandler):
 
     # Include the item we just saved since reading all the items is only
     # eventually consistent, but we know it wrote successfully.
-    serve_items_json(self.response, item)
+    serve_items_json(self.response, item_to_include=item)
 
 
 class Items(webapp2.RequestHandler):
@@ -84,6 +107,7 @@ class Items(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
+  ('/delete-item', DeleteItem),
   ('/save-item', SaveItem),
   ('/items', Items),
 ])
