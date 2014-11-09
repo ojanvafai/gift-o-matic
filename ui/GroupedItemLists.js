@@ -4,10 +4,10 @@ function groupByOwner(data) {
     return groupedData;
 
   data.forEach(function(itemData) {
-    var owners = itemData.owners.join(' & ');
-    if (!groupedData[owners])
-      groupedData[owners] = [];
-    groupedData[owners].push(itemData);
+    var recipients = itemData.recipients.join(' & ');
+    if (!groupedData[recipients])
+      groupedData[recipients] = [];
+    groupedData[recipients].push(itemData);
   });
   return groupedData;
 }
@@ -20,9 +20,9 @@ var GroupedItemLists = React.createClass({
     var itemLists = []
     Object.keys(groupedData, function(key, value) {
       itemLists.push(
-        <div className="owners-list">
+        <div className="recipients-list">
           <div className="title">List for {key}</div>
-          <ItemList onSaveItem={me.props.onSaveItem} onDeleteItem={me.props.onDeleteItem} data={value} />
+          <ItemList onSaveItem={me.props.onSaveItem} onDeleteItem={me.props.onDeleteItem} data={value} users={me.props.users} />
         </div>
       );
     });

@@ -20,7 +20,7 @@ var GiftOMatic = React.createClass({
       url: '/save-item',
       responseType: 'json',
       data: "data=" + encodeURIComponent(JSON.stringify(itemData)),
-    }).then(this.processItems.bind(this));
+    }).then(this.processItems);
   },
   // TODO: Reduce code duplication with saveItem
   deleteItem: function(key) {
@@ -29,7 +29,7 @@ var GiftOMatic = React.createClass({
       url: '/delete-item',
       responseType: 'json',
       data: "key=" + encodeURIComponent(key),
-    }).then(this.processItems.bind(this));
+    }).then(this.processItems);
   },
   componentDidMount: function() {
     this.loadDataFromServer();
@@ -45,7 +45,7 @@ var GiftOMatic = React.createClass({
         <div className="flexOne"><NewItemForm onSaveItem={this.saveItem} /></div>
         <Login users={this.state.users} />
       </div>
-      <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} />
+      <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} users={this.state.users} />
     </div>;
   },
 });

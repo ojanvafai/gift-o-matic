@@ -4,23 +4,20 @@ import webapp2
 from google.appengine.ext import ndb
 
 
-class Item(ndb.Model):
-  # this.quantityRequested = quantityRequested || 0;
+class Purchaser(ndb.Model):
+  purchaser = ndb.StringProperty()
   quantity = ndb.IntegerProperty()
-  # this.owners = owners || [];
+
+
+class Item(ndb.Model):
+  quantity = ndb.IntegerProperty()
   recipients = ndb.StringProperty(repeated=True)
-  # this.title = title || '';
   description = ndb.StringProperty()
-  # this.description = description || '';
   notes = ndb.StringProperty()
-  # this.links = links || [];
   links = ndb.StringProperty(repeated=True)
-  # this.photos = photos || [];
   photos = ndb.StringProperty(repeated=True)
-  # this.comments = comments || [];
   comments = ndb.StringProperty(repeated=True)
-  # this.purchasers = purchasers || [];
-  purchasers = ndb.StringProperty(repeated=True)
+  purchasers = ndb.StructuredProperty(Purchaser, repeated=True)
 
   def to_json(self):
     out = self.to_dict()

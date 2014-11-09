@@ -15,22 +15,28 @@
   <script src="ui/NewItemForm.js" type="text/jsx"></script>
 
   <style>
-    body {
+    body,
+    button {
       font-size: 20px;
+    }
+    .item button {
+      height: 2em;
+      width: 2em;
+      margin-left: 5px;
     }
     * {
       flex-shrink: 0 !important;
     }
-    .owners {
+    .recipients {
       flex: 1;
     }
-    .header .owners {
+    .header .recipients {
       margin-left: 30px;
     }
-    .title {
+    .description {
       flex: 2;
     }
-    .description {
+    .notes {
       flex: 3;
     }
     .flex,
@@ -48,7 +54,7 @@
     }
     .itemContent > *,
     .details > *,
-    .owners-list {
+    .recipients-list {
       margin-bottom: 10px;
     }
     .expandButton {

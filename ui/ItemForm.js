@@ -14,37 +14,37 @@ var ItemForm = React.createClass({
   },
   handleOpen: function(event) {
     this.setState({expanded: true});
-    this.setValue('owners');
-    this.setValue('quantityRequested');
-    this.setValue('title');
-    this.setValue('links');
+    this.setValue('recipients');
+    this.setValue('quantity');
     this.setValue('description');
+    this.setValue('links');
+    this.setValue('notes');
   },
   handleSave: function(event) {
-    // TODO: Support multiple owners
+    // TODO: Support multiple recipients
     var key = this.props.data && this.props.data.key;
     this.props.onSaveItem({
       key: key,
-      recipients: [getValue(this.refs.owners)],
-      quantity: getValue(this.refs.quantityRequested),
-      description: getValue(this.refs.title),
+      recipients: [getValue(this.refs.recipients)],
+      quantity: getValue(this.refs.quantity),
+      description: getValue(this.refs.description),
       links: [getValue(this.refs.links)],
-      notes: getValue(this.refs.description),
+      notes: getValue(this.refs.notes),
     });
   },
   componentDidMount: function() {
     this.handleOpen();
-    this.refs.owners.getDOMNode().focus();
+    this.refs.recipients.getDOMNode().focus();
   },
   render: function() {
     return <div className="ItemForm">
       <div className="ItemFormInputs">
-        <div>For: <input ref="owners"/></div>
-        <div>Count: <input ref="quantityRequested" /></div>
-        <div>Item: <input ref="title" /></div>
+        <div>For: <input ref="recipients"/></div>
+        <div>Count: <input ref="quantity" /></div>
+        <div>Item: <input ref="description" /></div>
       </div>
       <div className="flex">Link: <input className="flexOne" ref="links" /></div>
-      <div>Notes: <textarea ref="description" /></div>
+      <div>Notes: <textarea ref="notes" /></div>
       <div><button onClick={this.handleSave}>Save</button></div>
     </div>;
   },
