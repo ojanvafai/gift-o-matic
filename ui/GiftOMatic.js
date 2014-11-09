@@ -24,6 +24,8 @@ var GiftOMatic = React.createClass({
   },
   componentDidMount: function() {
     this.loadDataFromServer();
+    var fiveMinutes = 5 * 60 * 1000;
+    setInterval(this.loadDataFromServer, fiveMinutes);
   },
   render: function() {
     // TODO: Pass this.state.users.list down to ItemForm so that it can have
