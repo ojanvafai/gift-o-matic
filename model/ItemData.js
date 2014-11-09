@@ -1,11 +1,12 @@
-function ItemData(key, quantityRequested, owners, title, description, links, photos, comments, purchasers) {
-  this.key = key;
-  this.quantityRequested = quantityRequested || 0;
-  this.owners = owners || [];
-  this.title = title || '';
-  this.description = description || '';
-  this.links = links || [];
-  this.photos = photos || [];
-  this.comments = comments || [];
-  this.purchasers = purchasers || [];
+function ItemData(itemData) {
+  // TODO: Rename these fields to match the itemData fields.
+  this.key = itemData.key;
+  this.quantityRequested = itemData.quantity;
+  this.owners = itemData.recipients;
+  this.title = itemData.description;
+  this.description = itemData.notes;
+  this.links = itemData.links;
+  this.photos = itemData.photos;
+  this.comments = itemData.comments;
+  this.purchasers = itemData.purchasers;
 }

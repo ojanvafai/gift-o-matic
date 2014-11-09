@@ -28,10 +28,18 @@ class Item(ndb.Model):
     return out
 
 
-def serve_items_json(response):
+def serve_items_json(response, item_to_include=None):
   response.headers['Content-Type'] = 'application/json'
+  items = []
+  for item in Item.query():
+    if not item_to_include or item.key != item_to_include.key:
+      items.append(item.to_json())
+
+  if item_to_include:
+    items.append(item_to_include.to_json())
+
   response.out.write(json.dumps({
-    'items': [item.to_json() for item in Item.query()],
+    'items': items,
   }))
 
 
@@ -39,24 +47,35 @@ class SaveItem(webapp2.RequestHandler):
   def post(self):
     item = Item()
 
-    key = self.request.get('key')
+    raw_data = self.request.get('data')
+    if not raw_data:
+      # TODO: Make this a 404
+      self.response.out.write('"data" field is required.')
+      return
+
+    data = json.loads(raw_data)
+
+    key = data.get('key')
     if key:
-      old_item = Item.query(key=key)
+      ndb_key = ndb.Key(urlsafe=key)
+      old_item = ndb_key.get()
       if old_item:
         item = old_item
 
-    item.quantity = self.request.get('quantity')
-    item.recipients = self.request.get('recipients')
-    item.description = self.request.get('description')
-    item.notes = self.request.get('notes')
-    item.links = self.request.get('links')
-    item.photos = self.request.get('photos')
-    item.comments = self.request.get('comments')
-    item.purchasers = self.request.get('purchasers')
+    item.quantity = int(data.get('quantity', 0))
+    item.recipients = data.get('recipients', [])
+    item.description = data.get('description', '')
+    item.notes = data.get('notes', '')
+    item.links = data.get('links', [])
+    item.photos = data.get('photos', [])
+    item.comments = data.get('comments', [])
+    item.purchasers = data.get('purchasers', [])
 
     item.put()
 
-    serve_items_json(self.response)
+    # Include the item we just saved since reading all the items is only
+    # eventually consistent, but we know it wrote successfully.
+    serve_items_json(self.response, item)
 
 
 class Items(webapp2.RequestHandler):

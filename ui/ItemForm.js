@@ -17,17 +17,20 @@ var ItemForm = React.createClass({
     this.setValue('owners');
     this.setValue('quantityRequested');
     this.setValue('title');
-    this.setValue('link');
+    this.setValue('links');
     this.setValue('description');
   },
   handleSave: function(event) {
     // TODO: Support multiple owners
-    this.props.onSaveItem(
-        [getValue(this.refs.owners)],
-        getValue(this.refs.quantityRequested),
-        getValue(this.refs.title),
-        getValue(this.refs.link),
-        getValue(this.refs.description));
+    var key = this.props.data && this.props.data.key;
+    this.props.onSaveItem({
+      key: key,
+      recipients: [getValue(this.refs.owners)],
+      quantity: getValue(this.refs.quantityRequested),
+      description: getValue(this.refs.title),
+      links: [getValue(this.refs.links)],
+      notes: getValue(this.refs.description),
+    });
   },
   componentDidMount: function() {
     this.handleOpen();
@@ -40,7 +43,7 @@ var ItemForm = React.createClass({
         <div>Count: <input ref="quantityRequested" /></div>
         <div>Item: <input ref="title" /></div>
       </div>
-      <div className="flex">Link: <input className="flexOne" ref="link" /></div>
+      <div className="flex">Link: <input className="flexOne" ref="links" /></div>
       <div>Notes: <textarea ref="description" /></div>
       <div><button onClick={this.handleSave}>Save</button></div>
     </div>;

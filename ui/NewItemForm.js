@@ -5,8 +5,8 @@ var NewItemForm = React.createClass({
   handleOpen: function(event) {
     this.setState({expanded: true});
   },
-  handleSave: function() {
-    this.props.onSaveItem.apply(this, arguments);
+  handleSave: function(itemData) {
+    this.props.onSaveItem(itemData);
     this.setState({expanded: false})
   },
   render: function() {
