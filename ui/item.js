@@ -8,6 +8,11 @@ var Item = React.createClass({
   handleEditClick: function(event) {
     this.setState({editing: true});
   },
+  handleDeleteClick: function(event) {
+    if(confirm('Do you really want to delete?')) {
+      // Remove by key
+    }
+  },
   handleSave: function() {
     this.props.onSaveItem.apply(this, arguments)
     this.setState({editing: false});
@@ -56,6 +61,7 @@ var Item = React.createClass({
             </div>
           </div>
           <div className="editButton" onClick={this.handleEditClick}>✎</div>
+          <div className="deleteButton" onClick={this.handleDeleteClick}>☠</div>
         </div>
       );
     }
