@@ -29,6 +29,14 @@ handlers:
   script: users.app
   secure: always
 
+- url: /items
+  script: items.app
+  secure: always
+
+- url: /save-item
+  script: items.app
+  secure: always
+
 - url: /.*
   static_files: gift-o-matic.html
   upload: gift-o-matic.html
