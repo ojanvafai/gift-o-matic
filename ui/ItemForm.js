@@ -14,7 +14,7 @@ var ItemForm = React.createClass({
   },
   handleOpen: function(event) {
     this.setState({expanded: true});
-    this.setValue('owner');
+    this.setValue('owners');
     this.setValue('quantityRequested');
     this.setValue('title');
     this.setValue('link');
@@ -23,7 +23,7 @@ var ItemForm = React.createClass({
   handleSave: function(event) {
     // TODO: Support multiple owners
     this.props.onSaveItem(
-        [getValue(this.refs.owner)],
+        [getValue(this.refs.owners)],
         getValue(this.refs.quantityRequested),
         getValue(this.refs.title),
         getValue(this.refs.link),
@@ -31,11 +31,12 @@ var ItemForm = React.createClass({
   },
   componentDidMount: function() {
     this.handleOpen();
+    this.refs.owners.getDOMNode().focus();
   },
   render: function() {
     return <div className="ItemForm">
       <div className="ItemFormInputs">
-        <div>For: <input ref="owner"/></div>
+        <div>For: <input ref="owners"/></div>
         <div>Count: <input ref="quantityRequested" /></div>
         <div>Item: <input ref="title" /></div>
       </div>
