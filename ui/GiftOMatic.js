@@ -37,15 +37,25 @@ var GiftOMatic = React.createClass({
     setInterval(this.loadDataFromServer, fiveMinutes);
   },
   render: function() {
-    // TODO: Pass this.state.users.list down to ItemForm so that it can have
-    // a dropdown of users instead of an input box.
-    // console.log(this.state.users && this.state.users.list);
+    if (!this.state.users)
+      return <div />
+
+    if (this.state.users.current_user) {
+      var newItemForm = <NewItemForm onSaveItem={this.saveItem} />;
+      // TODO: Pass this.state.users.list down to ItemForm so that it can have
+      // a dropdown of users instead of an input box.
+      // console.log(this.state.users && this.state.users.list);
+      var items = <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} users={this.state.users} />;
+    } else {
+      var newItemForm = 'Please log in';
+    }
+
     return <div>
       <div className="flex">
-        <div className="flexOne"><NewItemForm onSaveItem={this.saveItem} /></div>
+        <div className="flexOne">{newItemForm}</div>
         <Login users={this.state.users} />
       </div>
-      <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} users={this.state.users} />
+      {items}
     </div>;
   },
 });
