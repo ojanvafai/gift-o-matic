@@ -73,10 +73,10 @@ var Item = React.createClass({
       return <ItemForm data={this.props.data} onSaveItem={this.handleSave} onClose={this.handleClose} />
 
     if (!this.isFullyPurchased())
-      var buyButton = <button onClick={this.handleBuy}>$</button>
+      var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
 
     if (this.currentUserIsBuying())
-      var unBuyButton = <button onClick={this.handleUnBuy}>Ⓧ</button>
+      var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
 
     return <div className="item">
         <div className="itemContent">
@@ -114,8 +114,8 @@ var Item = React.createClass({
         </div>
         {buyButton}
         {unBuyButton}
-        <button onClick={this.handleEdit}>✎</button>
-        <button onClick={this.handleDelete}>☠</button>
+        <button onClick={this.handleEdit} title='edit'>✎</button>
+        <button onClick={this.handleDelete} title='delete'>☠</button>
       </div>
   }
 });
