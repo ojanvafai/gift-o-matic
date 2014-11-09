@@ -44,13 +44,16 @@ var Item = React.createClass({
       this.props.onDeleteItem(this.props.data.key);
     }
   },
+  handleClose: function() {
+    this.setState({editing: false});
+  },
   handleSave: function(itemData) {
     var data = new ItemData(this.props.data);
     Object.keys(itemData, function(key, value) {
       data[key] = value;
     });
     this.props.onSaveItem(data);
-    this.setState({editing: false});
+    this.handleClose();
   },
   isFullyPurchased: function() {
     var quantity = this.props.data.quantity;
@@ -67,7 +70,7 @@ var Item = React.createClass({
   },
   render: function() {
     if (this.state.editing)
-      return <ItemForm data={this.props.data} onSaveItem={this.handleSave} />
+      return <ItemForm data={this.props.data} onSaveItem={this.handleSave} onClose={this.handleClose} />
 
     if (!this.isFullyPurchased())
       var buyButton = <button onClick={this.handleBuy}>$</button>

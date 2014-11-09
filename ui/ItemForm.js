@@ -45,7 +45,7 @@ var ItemForm = React.createClass({
       </div>
       <div className="flex">Link: <input className="flexOne" ref="links" /></div>
       <div>Notes: <textarea ref="notes" /></div>
-      <div><button onClick={this.handleSave}>Save</button></div>
+      <div><button onClick={this.handleSave}>Save</button><button onClick={this.props.onClose}>Cancel</button></div>
     </div>;
   },
 });
