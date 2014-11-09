@@ -3,11 +3,6 @@ var ItemList = React.createClass({
     var me = this;
     return (
       <div>
-        <div className="header row">
-          <div className="recipients"></div>
-          <div className="description">Item</div>
-          <div className="notes">Notes</div>
-        </div>
         {
           this.props.data.map(function(itemData) {
             return (

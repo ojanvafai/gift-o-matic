@@ -55,13 +55,6 @@ var Item = React.createClass({
     this.props.onSaveItem(data);
     this.handleClose();
   },
-  isFullyPurchased: function() {
-    var quantity = this.props.data.quantity;
-    var purchasedSoFar = this.props.data.purchasers.reduce(function(a, b) {
-      return a + b.quantity;
-    }, 0);
-    return quantity <= purchasedSoFar;
-  },
   currentUserIsBuying: function() {
     var currentUser = this.props.users.current_user;
     return this.props.data.purchasers.find(function(purchaser) {
@@ -78,51 +71,52 @@ var Item = React.createClass({
     });
 
     if (!isForCurrentUser) {
-      if (!this.isFullyPurchased())
+      var quantity = this.props.data.quantity;
+      var purchasedSoFar = this.props.data.purchasers.reduce(function(a, b) {
+        return a + b.quantity;
+      }, 0);
+
+      if (quantity > purchasedSoFar)
         var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
 
       if (this.currentUserIsBuying())
         var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
 
       var purchasers = this.props.data.purchasers.map(function(purchaser) {
-        return <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
+        return <div>
+            <div>{quantity - purchasedSoFar} left to purchase</div>
+            <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
+          </div>
       });
     }
 
     return <div className="item">
-        <div className="itemContent">
-          <div className="row">
-            <div className="recipients">{this.props.data.recipients.join(' & ')} wants</div>
-            <div className="description">{this.props.data.description}</div>
-            <div className="notes">{this.props.data.notes}</div>
-          </div>
-
-          <div className="details">
-            <div className="row">
-              <div className="recipients">Quantity: {this.props.data.quantity}</div>
-              <div className="description">{
-                this.props.data.links.map(function(link) {
-                  return <div><a href={link}>link</a></div>
-                })
-              }</div>
-              <div className="notes">{purchasers}</div>
-            </div>
-            <div>{
-              this.props.data.photos.map(function(url) {
-                return <div><img src={url} /></div>
-              })
-            }</div>
-            <div>{
-              this.props.data.comments.map(function(comment) {
-                return <div><b>{comment.author}: </b>{comment.comment}</div>
-              })
-            }</div>
-          </div>
+        <div className="itemButtons">
+          {buyButton}
+          {unBuyButton}
+          <button onClick={this.handleEdit} title='edit'>✎</button>
+          <button onClick={this.handleDelete} title='delete'>☠</button>
         </div>
-        {buyButton}
-        {unBuyButton}
-        <button onClick={this.handleEdit} title='edit'>✎</button>
-        <button onClick={this.handleDelete} title='delete'>☠</button>
+        <div>
+          {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description} {
+            this.props.data.links.map(function(link) {
+              return <a href={link}>link</a>
+            })
+          }
+        </div>
+        <div>{this.props.data.notes}</div>
+        <div>{purchasers}</div>
+        <div>{
+          this.props.data.photos.map(function(url) {
+            return <div><img src={url} /></div>
+          })
+        }</div>
+        <div>{
+          this.props.data.comments.map(function(comment) {
+            return <div><b>{comment.author}: </b>{comment.comment}</div>
+          })
+        }</div>
+        <br className="clear" />
       </div>
   }
 });
