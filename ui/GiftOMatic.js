@@ -51,10 +51,10 @@ var GiftOMatic = React.createClass({
     console.log(this.state.users && this.state.users.list);
     return <div>
       <div className="flex">
-        <div className="flexOne"><NewItemForm onAdd={this.saveItem} /></div>
+        <div className="flexOne"><NewItemForm onSaveItem={this.saveItem} /></div>
         <Login users={this.state.users} />
       </div>
-      <GroupedItemLists data={this.state.data} />
+      <GroupedItemLists onSaveItem={this.saveItem} data={this.state.data} />
     </div>;
   },
 });

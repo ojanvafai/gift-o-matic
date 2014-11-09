@@ -1,5 +1,6 @@
 var ItemList = React.createClass({
   render: function() {
+    var me = this;
     return (
       <div>
         <div className="header row">
@@ -10,7 +11,7 @@ var ItemList = React.createClass({
         {
           this.props.data.map(function(itemData) {
             return (
-              <Item key={itemData.key} data={itemData} />
+              <Item onSaveItem={me.props.onSaveItem} key={itemData.key} data={itemData} />
             );
           })
         }

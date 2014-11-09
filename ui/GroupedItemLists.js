@@ -16,13 +16,13 @@ var GroupedItemLists = React.createClass({
   render: function() {
     var data = this.props && this.props.data;
     var groupedData = groupByOwner(data);
-
+    var me = this;
     var itemLists = []
     Object.keys(groupedData, function(key, value) {
       itemLists.push(
         <div className="owners-list">
           <div className="title">List for {key}</div>
-          <ItemList data={value} />
+          <ItemList onSaveItem={me.props.onSaveItem} data={value} />
         </div>
       );
     });
