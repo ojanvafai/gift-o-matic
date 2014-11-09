@@ -83,7 +83,7 @@ var Item = React.createClass({
         var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
 
       var purchasers = this.props.data.purchasers.map(function(purchaser) {
-        return <div>
+        return <div key={purchaser}>
             <div>{quantity - purchasedSoFar} left to purchase</div>
             <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
           </div>
@@ -100,7 +100,8 @@ var Item = React.createClass({
         <div>
           {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description} {
             this.props.data.links.map(function(link) {
-              return <a href={link}>link</a>
+              // TODO: This key isn't unique of the same link is included twice.
+              return <a href={link} key={link}>link</a>
             })
           }
         </div>
@@ -108,12 +109,14 @@ var Item = React.createClass({
         <div>{purchasers}</div>
         <div>{
           this.props.data.photos.map(function(url) {
-            return <div><img src={url} /></div>
+            // TODO: This key isn't unique of the same image is included twice.
+            return <div key={url}><img src={url} /></div>
           })
         }</div>
         <div>{
-          this.props.data.comments.map(function(comment) {
-            return <div><b>{comment.author}: </b>{comment.comment}</div>
+          this.props.data.comments.map(function(comment, index) {
+            // TODO: This key isn't right if people can delete comments.
+            return <div key={index}><b>{comment.author}: </b>{comment.comment}</div>
           })
         }</div>
         <br className="clear" />

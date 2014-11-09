@@ -20,7 +20,7 @@ var GroupedItemLists = React.createClass({
     var itemLists = []
     Object.keys(groupedData, function(key, value) {
       itemLists.push(
-        <div className="recipients-list">
+        <div className="recipients-list" key={key}>
           <div className="title">List for {key}</div>
           <ItemList onSaveItem={me.props.onSaveItem} onDeleteItem={me.props.onDeleteItem} data={value} users={me.props.users} />
         </div>
