@@ -24,7 +24,6 @@ var ItemForm = React.createClass({
 
     this.setValue('quantity');
     this.setValue('description');
-    this.setValue('links');
     this.setValue('notes');
 
     var recipients = this.props.data.recipients;
@@ -46,7 +45,6 @@ var ItemForm = React.createClass({
       recipients: recipients,
       quantity: getValue(this.refs.quantity),
       description: getValue(this.refs.description),
-      links: [getValue(this.refs.links)],
       notes: getValue(this.refs.notes),
     });
   },
@@ -71,7 +69,6 @@ var ItemForm = React.createClass({
         <div>Count: <input ref="quantity" /></div>
         <div>Item: <input ref="description" /></div>
       </div>
-      <div className="flex">Link: <input className="flexOne" ref="links" /></div>
       <div>Notes: <textarea ref="notes" /></div>
       <div><button onClick={this.handleSave}>Save</button><button onClick={this.props.onClose}>Cancel</button></div>
     </div>;

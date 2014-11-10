@@ -98,12 +98,7 @@ var Item = React.createClass({
           <button onClick={this.handleDelete} title='delete'>☠</button>
         </div>
         <div>
-          {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description} {
-            this.props.data.links.map(function(link) {
-              // TODO: This key isn't unique of the same link is included twice.
-              return <a href={link} key={link}>link</a>
-            })
-          }
+          {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description}
         </div>
         <div>{this.props.data.notes}</div>
         <div>{purchasers}</div>
