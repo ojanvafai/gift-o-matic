@@ -39,6 +39,7 @@ var ItemForm = React.createClass({
     var recipients = [];
     pushIfNonEmpty(recipients, this.refs.recipient1);
     pushIfNonEmpty(recipients, this.refs.recipient2);
+    recipients.sort();
 
     this.props.onSaveItem({
       key: key,
@@ -57,12 +58,12 @@ var ItemForm = React.createClass({
     var usersPlusBlank = ['-'].concat(this.props.users.list)
     return <div className="ItemForm">
       <div className="ItemFormInputs">
-        <div>For: <select ref="recipient1"> 
+        <div>For: <select ref="recipient1">
         {
           usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
         }
         </select>
-        &amp; <select ref="recipient2"> 
+        &amp; <select ref="recipient2">
         {
           usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
         }
