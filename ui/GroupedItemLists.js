@@ -13,25 +13,32 @@ function groupByOwner(data) {
 }
 
 var GroupedItemLists = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
+  changeGroup: function() {
+    this.setState({recipients: this.refs.group.getDOMNode().value});
+  },
   render: function() {
     var data = this.props && this.props.data;
     var groupedData = groupByOwner(data);
-    var me = this;
-    var itemLists = []
-    Object.keys(groupedData).sort().forEach(function(key) {
-      itemLists.push(
-        <div className="recipients-list" key={key}>
-          <div className="title">List for {key}</div>
-          <ItemList
-              onSaveItem={me.props.onSaveItem}
-              onDeleteItem={me.props.onDeleteItem}
-              data={groupedData[key]}
-              users={me.props.users} />
-        </div>
-      );
-    });
+
+    var dropdown = <select ref="group" onChange={this.changeGroup}>
+      <option value="">Select a recipient</option>
+      {
+        Object.keys(groupedData).sort().map(function(user) {return <option value={user}>{user}</option>})
+      }
+    </select>
+
+    if (this.state.recipients) {
+      var list = <ItemList
+          onSaveItem={this.props.onSaveItem}
+          onDeleteItem={this.props.onDeleteItem}
+          data={groupedData[this.state.recipients]}
+          users={this.props.users} />
+    }
     return <div>
-      {itemLists}
+      {dropdown}{list}
     </div>;
   }
 });

@@ -65,7 +65,7 @@ var ItemForm = React.createClass({
           usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
         }
         </select></div>
-        <div>Count: <input ref="quantity" /></div>
+        <div>Count: <input className="quantity" ref="quantity" /></div>
       </div>
       <div className="description"><div>Item: </div><input ref="description" /></div>
       <div>Notes: <textarea ref="notes" /></div>
