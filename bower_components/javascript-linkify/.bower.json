@@ -1,0 +1,13 @@
+{
+  "name": "javascript-linkify",
+  "homepage": "https://github.com/cowboy/javascript-linkify",
+  "_release": "178ffc271f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "178ffc271f89cef403faf73cabd74dda0a79af62"
+  },
+  "_source": "git://github.com/cowboy/javascript-linkify.git",
+  "_target": "*",
+  "_originalSource": "javascript-linkify"
+}
