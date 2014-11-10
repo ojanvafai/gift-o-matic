@@ -50,7 +50,7 @@ var ItemForm = React.createClass({
   },
   componentDidMount: function() {
     this.handleOpen();
-    this.refs.recipient1.getDOMNode().focus();
+    this.refs.description.getDOMNode().focus();
   },
   render: function() {
     var usersPlusBlank = ['-'].concat(this.props.users.list)
