@@ -76,7 +76,7 @@ var Item = React.createClass({
         return a + b.quantity;
       }, 0);
 
-      if (quantity > purchasedSoFar)
+      if (!quantity || quantity > purchasedSoFar)
         var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
 
       if (this.currentUserIsBuying())
@@ -84,7 +84,7 @@ var Item = React.createClass({
 
       var purchasers = this.props.data.purchasers.map(function(purchaser) {
         return <div key={purchaser}>
-            <div>{quantity - purchasedSoFar} left to purchase</div>
+            <div>{quantity ? quantity - purchasedSoFar : '∞'} left to purchase</div>
             <div><b>{purchaser.purchaser}</b> is getting {purchaser.quantity}.</div>
           </div>
       });
@@ -98,7 +98,7 @@ var Item = React.createClass({
           <button onClick={this.handleDelete} title='delete'>☠</button>
         </div>
         <div className="title">
-          {this.props.data.quantity} {this.props.data.description}
+          {this.props.data.quantity || '∞'} {this.props.data.description}
         </div>
         <div>
           <div dangerouslySetInnerHTML={{__html: linkify(this.props.data.notes)}} />
