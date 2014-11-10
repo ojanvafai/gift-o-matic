@@ -100,7 +100,7 @@ var Item = React.createClass({
         <div>
           {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description}
         </div>
-        <div>{this.props.data.notes}</div>
+        <div dangerouslySetInnerHTML={{__html: linkify(this.props.data.notes)}} />
         <div>{purchasers}</div>
         <div>{
           this.props.data.photos.map(function(url) {
