@@ -14,7 +14,7 @@ var NewItemForm = React.createClass({
   },
   render: function() {
     if (!this.state.expanded) {
-      return <div onClick={this.handleOpen}>Click here to add a new item</div>;
+      return <button onClick={this.handleOpen} title='Add new item'>+</button>;
     }
     return <ItemForm onSaveItem={this.handleSave} onClose={this.handleClose} users={this.props.users} />
   },
