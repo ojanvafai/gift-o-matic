@@ -49,9 +49,10 @@ var GiftOMatic = React.createClass({
 
     return <div>
       <div className="flex">
-        <div className="flexOne">{newItemForm}</div>
+        <div className="flexOne"></div>
         <Login users={this.state.users} />
       </div>
+      {newItemForm}
       {items}
     </div>;
   },

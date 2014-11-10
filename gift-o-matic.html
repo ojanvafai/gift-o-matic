@@ -23,7 +23,7 @@
     .item button {
       height: 2em;
       width: 2em;
-      margin-left: 5px;
+      margin-left: 10px;
     }
     * {
       flex-shrink: 0 !important;
@@ -32,8 +32,8 @@
       display: flex;
     }
     .item {
-      border: 1px solid;
-      padding: 5px;
+      border: 1px dashed;
+      margin: 10px 0;
     }
     .clear {
       clear: both;
@@ -41,9 +41,14 @@
     .itemButtons {
       float: right;
     }
-    .item > *,
+    .item > .title {
+      background-color: lightgrey;
+    }
+    .item > * {
+      padding: 10px;
+    }
     .recipients-list {
-      margin-bottom: 10px;
+      margin: 20px 0;
     }
     .flexOne,
     .itemContent {
@@ -62,17 +67,17 @@
     }
     .ItemForm {
       background-color: lightyellow;
-      padding: 5px;
+      padding: 10px;
     }
     .ItemForm > * {
-      margin: 5px 0;
+      margin: 10px 0;
     }
     .ItemForm .description {
       display: flex;
     }
     .ItemForm .description > input {
       flex: 1;
-      margin-left: 5px;
+      margin-left: 10px;
     }
     .ItemForm textarea {
       box-sizing: border-box;

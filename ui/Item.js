@@ -97,23 +97,25 @@ var Item = React.createClass({
           <button onClick={this.handleEdit} title='edit'>✎</button>
           <button onClick={this.handleDelete} title='delete'>☠</button>
         </div>
-        <div>
-          {this.props.data.recipients.join(' & ')} wants {this.props.data.quantity} {this.props.data.description}
+        <div className="title">
+          {this.props.data.quantity} {this.props.data.description}
         </div>
-        <div dangerouslySetInnerHTML={{__html: linkify(this.props.data.notes)}} />
-        <div>{purchasers}</div>
-        <div>{
-          this.props.data.photos.map(function(url) {
-            // TODO: This key isn't unique of the same image is included twice.
-            return <div key={url}><img src={url} /></div>
-          })
-        }</div>
-        <div>{
-          this.props.data.comments.map(function(comment, index) {
-            // TODO: This key isn't right if people can delete comments.
-            return <div key={index}><b>{comment.author}: </b>{comment.comment}</div>
-          })
-        }</div>
+        <div>
+          <div dangerouslySetInnerHTML={{__html: linkify(this.props.data.notes)}} />
+          <div>{purchasers}</div>
+          <div>{
+            this.props.data.photos.map(function(url) {
+              // TODO: This key isn't unique of the same image is included twice.
+              return <div key={url}><img src={url} /></div>
+            })
+          }</div>
+          <div>{
+            this.props.data.comments.map(function(comment, index) {
+              // TODO: This key isn't right if people can delete comments.
+              return <div key={index}><b>{comment.author}: </b>{comment.comment}</div>
+            })
+          }</div>
+        </div>
         <br className="clear" />
       </div>
   }
