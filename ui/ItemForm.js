@@ -18,8 +18,9 @@ var ItemForm = React.createClass({
   },
   handleOpen: function(event) {
     this.setState({expanded: true});
-    if (!this.props.data)
-      return;
+    if (!this.props.data) {
+      this.props.data = { quantity: 1, recipients: [this.props.users.current_user] };
+    }
 
     this.setValue('quantity');
     this.setValue('description');
