@@ -53,7 +53,7 @@ var ItemForm = React.createClass({
     this.refs.description.getDOMNode().focus();
   },
   render: function() {
-    var usersPlusBlank = ['-'].concat(this.props.users.list)
+    var usersPlusBlank = [''].concat(this.props.users.list)
     return <div className="ItemForm">
       <div className="ItemFormInputs">
         <div>For: <select ref="recipient1">
