@@ -41,10 +41,7 @@ var GiftOMatic = React.createClass({
       return <div />
 
     if (this.state.users.current_user) {
-      var newItemForm = <NewItemForm onSaveItem={this.saveItem} />;
-      // TODO: Pass this.state.users.list down to ItemForm so that it can have
-      // a dropdown of users instead of an input box.
-      // console.log(this.state.users && this.state.users.list);
+      var newItemForm = <NewItemForm onSaveItem={this.saveItem} users={this.state.users} />;
       var items = <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} users={this.state.users} />;
     } else {
       var newItemForm = 'Please log in';

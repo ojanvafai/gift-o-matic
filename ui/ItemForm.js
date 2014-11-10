@@ -53,9 +53,19 @@ var ItemForm = React.createClass({
     this.refs.recipient1.getDOMNode().focus();
   },
   render: function() {
+    var usersPlusBlank = ['-'].concat(this.props.users.list)
     return <div className="ItemForm">
       <div className="ItemFormInputs">
-        <div>For: <input ref="recipient1"/> &amp; <input ref="recipient2"/></div>
+        <div>For: <select ref="recipient1"> 
+        {
+          usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
+        }
+        </select>
+        &amp; <select ref="recipient2"> 
+        {
+          usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
+        }
+        </select></div>
         <div>Count: <input ref="quantity" /></div>
         <div>Item: <input ref="description" /></div>
       </div>

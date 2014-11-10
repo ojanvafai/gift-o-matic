@@ -63,7 +63,7 @@ var Item = React.createClass({
   },
   render: function() {
     if (this.state.editing)
-      return <ItemForm data={this.props.data} onSaveItem={this.handleSave} onClose={this.handleClose} />
+      return <ItemForm data={this.props.data} onSaveItem={this.handleSave} onClose={this.handleClose} users={this.props.users} />
 
     var currentUser = this.props.users.current_user;
     var isForCurrentUser = this.props.data.recipients.some(function(recipient) {
