@@ -50,7 +50,7 @@ var ItemForm = React.createClass({
   },
   componentDidMount: function() {
     this.handleOpen();
-    this.refs.recipients.getDOMNode().focus();
+    this.refs.recipient1.getDOMNode().focus();
   },
   render: function() {
     return <div className="ItemForm">
