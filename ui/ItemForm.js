@@ -60,15 +60,14 @@ var ItemForm = React.createClass({
         {
           usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
         }
-        </select>
-        &amp; <select ref="recipient2">
+        </select> &amp; <select ref="recipient2">
         {
           usersPlusBlank.map(function(user) {return <option value={user}>{user}</option>})
         }
         </select></div>
         <div>Count: <input ref="quantity" /></div>
-        <div>Item: <input ref="description" /></div>
       </div>
+      <div className="description"><div>Item: </div><input ref="description" /></div>
       <div>Notes: <textarea ref="notes" /></div>
       <div><button onClick={this.handleSave}>Save</button><button onClick={this.props.onClose}>Cancel</button></div>
     </div>;
