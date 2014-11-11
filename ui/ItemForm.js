@@ -39,6 +39,10 @@ var ItemForm = React.createClass({
     pushIfNonEmpty(recipients, this.refs.recipient1);
     pushIfNonEmpty(recipients, this.refs.recipient2);
     recipients.sort();
+    if (recipients.length == 0) {
+      alert('You must specify a recipient!');
+      return;
+    }
 
     this.props.onSaveItem({
       key: key,
