@@ -37,7 +37,7 @@ var GroupedItemLists = React.createClass({
           data={groupedData[this.state.recipients]}
           users={this.props.users} />
     }
-    return <div>
+    return <div>View wish list for &nbsp;
       {dropdown}{list}
     </div>;
   }
