@@ -2,6 +2,28 @@ var Item = React.createClass({
   getInitialState: function() {
     return {};
   },
+  handlePurchase: function() {
+    var data = new ItemData(this.props.data);
+    var currentUser = this.props.users.current_user;
+
+    var existing = data.purchasers.find(function(purchaser) {
+      return purchaser.purchaser == currentUser;
+    });
+    existing.is_purchased = true;
+
+    this.props.onSaveItem(data);
+  },
+  handleUnPurchase: function() {
+    var data = new ItemData(this.props.data);
+    var currentUser = this.props.users.current_user;
+
+    var existing = data.purchasers.find(function(purchaser) {
+      return purchaser.purchaser == currentUser;
+    });
+    existing.is_purchased = false;
+
+    this.props.onSaveItem(data);
+  },
   handleUnBuy: function(event) {
     var data = new ItemData(this.props.data);
     var currentUser = this.props.users.current_user;
@@ -77,7 +99,7 @@ var Item = React.createClass({
       }, 0);
 
       if (!quantity || quantity > purchasedSoFar)
-        var buyButton = <button onClick={this.handleBuy} title='purchase'>$</button>
+        var buyButton = <button onClick={this.handleBuy} title='purchase'>✓</button>
 
       if (this.currentUserIsBuying())
         var unBuyButton = <button onClick={this.handleUnBuy} title='unpurchase'>Ⓧ</button>
@@ -90,13 +112,32 @@ var Item = React.createClass({
       });
     }
 
-    return <div className="item">
-        <div className="itemButtons">
-          {buyButton}
-          {unBuyButton}
-          <button onClick={this.handleEdit} title='edit'>✎</button>
-          <button onClick={this.handleDelete} title='delete'>☠</button>
+    var buttons;
+    if (this.props.inShoppingList) {
+      var isPurchased = this.props.data.purchasers.some(function(purchaser) {
+        return purchaser.purchaser == currentUser && purchaser.is_purchased;
+      })
+
+      if (isPurchased) {
+        buttons = <div className="itemButtons">Purchased!
+          <button onClick={this.handleUnPurchase} title="Whoops. Didn't by this yet.">Ⓧ</button>
         </div>
+      } else {
+        buttons = <div className="itemButtons">
+          <button onClick={this.handlePurchase} title='bought this'>$</button>
+        </div>
+      }
+    } else {
+      buttons = <div className="itemButtons">
+        {buyButton}
+        {unBuyButton}
+        <button onClick={this.handleEdit} title='edit'>✎</button>
+        <button onClick={this.handleDelete} title='delete'>☠</button>
+      </div>
+    }
+
+    return <div className="item">
+        {buttons}
         <div className="title">
           {this.props.data.quantity || '∞'} {this.props.data.description}
         </div>

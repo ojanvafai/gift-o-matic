@@ -42,7 +42,7 @@ var GiftOMatic = React.createClass({
 
     if (this.state.users.current_user) {
       var newItemForm = <NewItemForm onSaveItem={this.saveItem} users={this.state.users} />;
-      var shoppingList = <ShoppingList data={this.state.data} users={this.state.users} />;
+      var shoppingList = <ShoppingList data={this.state.data} users={this.state.users} onSaveItem={this.saveItem} />;
       var items = <GroupedItemLists onSaveItem={this.saveItem} onDeleteItem={this.deleteItem} data={this.state.data} users={this.state.users} />;
     } else {
       var newItemForm = 'Please log in';

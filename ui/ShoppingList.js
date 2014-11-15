@@ -40,7 +40,8 @@ var ShoppingList = React.createClass({
           Object.keys(purchases).sort().map(function(user) {return <div key={user}>Purchases for {user}
               {
                 purchases[user].map(function(item) {return (
-                  <Item key={item.key} data={item} users={me.props.users} />
+                  <Item key={item.key} data={item} users={me.props.users}
+                    onSaveItem={me.props.onSaveItem} inShoppingList />
                 )})
               }
           </div>})

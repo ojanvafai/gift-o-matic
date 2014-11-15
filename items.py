@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 class Purchaser(ndb.Model):
   purchaser = ndb.StringProperty()
   quantity = ndb.IntegerProperty()
+  is_purchased = ndb.BooleanProperty()
 
 
 class Item(ndb.Model):
