@@ -26,7 +26,7 @@ var GroupedItemLists = React.createClass({
     var dropdown = <select ref="group" onChange={this.changeGroup}>
       <option value="">Select a recipient</option>
       {
-        Object.keys(groupedData).sort().map(function(user) {return <option value={user}>{user}</option>})
+        Object.keys(groupedData).sort().map(function(user) {return <option value={user} key={user}>{user}</option>})
       }
     </select>
 

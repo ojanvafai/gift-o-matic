@@ -32,14 +32,18 @@ var ShoppingList = React.createClass({
       display: this.state.expanded ? 'block' : 'none',
     };
     var purchases = getPurchasesForUser(this.props.users.current_user, this.props.data);
+    var me = this;
     return <div>
       <div onClick={this.handleClick} title='View My Shopping List'>{detailsText} My Shopping List
         <div className='details' style={detailsStyle}>
         {
-          Object.keys(purchases).sort().map(function(user) {return <div>Purchases for {user}
-          <ol>
-            {purchases[user].map(function(item) {return <li>{item.description}</li> })}
-          </ol></div>});
+          Object.keys(purchases).sort().map(function(user) {return <div key={user}>Purchases for {user}
+              {
+                purchases[user].map(function(item) {return (
+                  <Item key={item.key} data={item} users={me.props.users} />
+                )})
+              }
+          </div>})
         }
         </div>
       </div>
