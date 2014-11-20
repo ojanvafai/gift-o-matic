@@ -89,7 +89,7 @@ var Item = React.createClass({
 
     var currentUser = this.props.users.current_user;
     var isForCurrentUser = this.props.data.recipients.some(function(recipient) {
-      return recipient == currentUser;
+      return recipient.toLowerCase() == currentUser.toLowerCase();
     });
 
     if (!isForCurrentUser) {
