@@ -4,8 +4,10 @@ var Login = React.createClass({
       return <div />;
 
     var current = this.props.users.current_user;
-    if (!current)
-      return <a href={this.props.users.login_url}>Sign in</a>;
+    if (!current) {
+      window.location = this.props.users.login_url;
+      return <div />
+    }
 
     return <div>{current} <a href={this.props.users.logout_url}>Sign out</a></div>;
   },
