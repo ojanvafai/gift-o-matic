@@ -139,7 +139,7 @@ var Item = React.createClass({
     return <div className="item">
         {buttons}
         <div className="title">
-          {this.props.data.quantity || '∞'} {this.props.data.description}
+          {this.props.data.quantity || '∞'} <span dangerouslySetInnerHTML={{__html: linkify(this.props.data.description)}} />
         </div>
         <div>
           <div dangerouslySetInnerHTML={{__html: linkify(this.props.data.notes)}} />
