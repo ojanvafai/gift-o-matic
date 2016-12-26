@@ -54,8 +54,8 @@ var GiftOMatic = React.createClass({
         <Login users={this.state.users} />
       </div>
       {newItemForm}
-      {items}
       {shoppingList}
+      {items}
     </div>;
   },
 });
