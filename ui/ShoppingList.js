@@ -34,7 +34,8 @@ var ShoppingList = React.createClass({
     var purchases = getPurchasesForUser(this.props.users.current_user, this.props.data);
     var me = this;
     return <div>
-      <div onClick={this.handleClick} title='View My Shopping List'>{detailsText} My Shopping List
+      <div title='View My Shopping List'>
+        <div onClick={this.handleClick}>{detailsText} My Shopping List</div>
         <div className='details' style={detailsStyle}>
         {
           Object.keys(purchases).sort().map(function(user) {return <div key={user}>Purchases for {user}
