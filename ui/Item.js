@@ -112,27 +112,24 @@ var Item = React.createClass({
       });
     }
 
+    var deleteButton = <button onClick={this.handleDelete} title='delete'>☠</button>;
+
     var buttons;
     if (this.props.inShoppingList) {
-      var isPurchased = this.props.data.purchasers.some(function(purchaser) {
-        return purchaser.purchaser == currentUser && purchaser.is_purchased;
-      })
-
-      if (isPurchased) {
-        buttons = <div className="itemButtons">Purchased!
-          <button onClick={this.handleUnPurchase} title="Whoops. Didn't by this yet.">Ⓧ</button>
-        </div>
-      } else {
-        buttons = <div className="itemButtons">
-          <button onClick={this.handlePurchase} title='bought this'>$</button>
-        </div>
-      }
+      buttons = <div className="itemButtons">
+        {unBuyButton}
+      </div>
+    } else if (this.props.showCopyButton) {
+      buttons = <div className="itemButtons">
+        <button onClick={this.handleUnBuy} title='copy to current year'>⎘</button>
+        {deleteButton}
+      </div>
     } else {
       buttons = <div className="itemButtons">
         {buyButton}
         {unBuyButton}
         <button onClick={this.handleEdit} title='edit'>✎</button>
-        <button onClick={this.handleDelete} title='delete'>☠</button>
+        {deleteButton}
       </div>
     }
 

@@ -8,6 +8,16 @@ var ItemList = React.createClass({
     var newYear = this.state.pseudoYear == this.props.year ? null : this.props.year;
     this.setState({pseudoYear: newYear});
   },
+  shouldShowCopyButton: function() {
+    if (currentYear != this.props.year)
+      return true;
+
+    var date = new Date();
+    if (date.getMonth() == 11 && date.getDate() > 25)
+      return true;
+
+    return false;
+  },
   render: function() {
     var expanded = this.state.pseudoYear == this.props.year;
     var arrow = expanded ? '▼' : '▶';
@@ -26,6 +36,7 @@ var ItemList = React.createClass({
                     onDeleteItem={me.props.onDeleteItem}
                     key={itemData.key}
                     data={itemData}
+                    showCopyButton={me.shouldShowCopyButton()}
                     users={me.props.users} />
             })
           }
