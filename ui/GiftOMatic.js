@@ -55,6 +55,7 @@ var GiftOMatic = React.createClass({
       </div>
       {newItemForm}
       {shoppingList}
+      <hr/>
       {items}
     </div>;
   },

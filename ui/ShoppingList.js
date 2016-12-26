@@ -1,3 +1,4 @@
+var currentYear = new Date().getFullYear();
 
 function getPurchasesForUser(user, data) {
   var purchases = {};
@@ -5,6 +6,9 @@ function getPurchasesForUser(user, data) {
     return purchases;
 
   data.forEach(function(itemData) {
+    if (itemData.year != currentYear)
+      return;
+
     var isUsers = itemData.purchasers.find(function(purchaser) {
       return purchaser.purchaser == user;
     });
@@ -33,21 +37,27 @@ var ShoppingList = React.createClass({
     };
     var purchases = getPurchasesForUser(this.props.users.current_user, this.props.data);
     var me = this;
+
+    var list;
+
+    if (purchases.length) {
+      list = Object.keys(purchases).sort().map(function(user) {
+        return (<div key={user}>Purchases for {user}
+          {
+            purchases[user].map(function(item) {return (
+              <Item key={item.key} data={item} users={me.props.users}
+                onSaveItem={me.props.onSaveItem} inShoppingList />
+            )})
+          }
+        </div>)});
+    } else {
+      list = "You haven't selected any gifts to purchase."
+    }
+
     return <div>
       <div title='View My Shopping List'>
         <h2 onClick={this.handleClick}>{detailsText} My Shopping List</h2>
-        <div className='details' style={detailsStyle}>
-        {
-          Object.keys(purchases).sort().map(function(user) {return <div key={user}>Purchases for {user}
-              {
-                purchases[user].map(function(item) {return (
-                  <Item key={item.key} data={item} users={me.props.users}
-                    onSaveItem={me.props.onSaveItem} inShoppingList />
-                )})
-              }
-          </div>})
-        }
-        </div>
+        <div className='details' style={detailsStyle}>{list}</div>
       </div>
     </div>
   },
