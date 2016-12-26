@@ -40,9 +40,10 @@ var ShoppingList = React.createClass({
 
     var list;
 
-    if (purchases.length) {
-      list = Object.keys(purchases).sort().map(function(user) {
-        return (<div key={user}>Purchases for {user}
+    var recipients = Object.keys(purchases);
+    if (recipients.length) {
+      list = recipients.sort().map(function(user) {
+        return (<div key={user}><h3>Purchases for {user}</h3>
           {
             purchases[user].map(function(item) {return (
               <Item key={item.key} data={item} users={me.props.users}
