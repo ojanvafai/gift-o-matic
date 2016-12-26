@@ -35,7 +35,7 @@ var ShoppingList = React.createClass({
     var me = this;
     return <div>
       <div title='View My Shopping List'>
-        <div onClick={this.handleClick}>{detailsText} My Shopping List</div>
+        <h2 onClick={this.handleClick}>{detailsText} My Shopping List</h2>
         <div className='details' style={detailsStyle}>
         {
           Object.keys(purchases).sort().map(function(user) {return <div key={user}>Purchases for {user}
