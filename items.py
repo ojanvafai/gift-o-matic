@@ -18,9 +18,11 @@ class Item(ndb.Model):
   photos = ndb.StringProperty(repeated=True)
   comments = ndb.StringProperty(repeated=True)
   purchasers = ndb.StructuredProperty(Purchaser, repeated=True)
+  created = ndb.DateProperty(auto_now_add=True)
 
-  def to_json(self):
+  def to_jsonable(self):
     out = self.to_dict()
+    out['created'] = str(self.created)
     out['key'] = self.key.urlsafe()
     return out
 
@@ -31,10 +33,10 @@ def serve_items_json(response, item_to_include=None, key_to_exclude=None):
   for item in Item.query():
     if ((not item_to_include or item.key != item_to_include.key) and
         item.key != key_to_exclude):
-      items.append(item.to_json())
+      items.append(item.to_jsonable())
 
   if item_to_include:
-    items.append(item_to_include.to_json())
+    items.append(item_to_include.to_jsonable())
 
   response.out.write(json.dumps({
     'items': items,
@@ -53,7 +55,7 @@ class DeleteItem(webapp2.RequestHandler):
     ndb_key.delete()
 
     # Appengine queries are only eventually consistent,
-    # so we need to exclude the item we just delete.
+    # so we need to exclude the item we just deleted.
     serve_items_json(self.response, key_to_exclude=ndb_key)
 
 

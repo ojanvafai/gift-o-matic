@@ -6,8 +6,11 @@ function groupByOwner(data) {
   data.forEach(function(itemData) {
     var recipients = itemData.recipients.join(' & ');
     if (!groupedData[recipients])
-      groupedData[recipients] = [];
-    groupedData[recipients].push(itemData);
+      groupedData[recipients] = {};
+
+    if (!groupedData[recipients][itemData.year])
+      groupedData[recipients][itemData.year] = [];
+    groupedData[recipients][itemData.year].push(itemData);
   });
   return groupedData;
 }
@@ -31,11 +34,18 @@ var GroupedItemLists = React.createClass({
     </select>
 
     if (this.state.recipients) {
-      var list = <ItemList
-          onSaveItem={this.props.onSaveItem}
-          onDeleteItem={this.props.onDeleteItem}
-          data={groupedData[this.state.recipients]}
-          users={this.props.users} />
+      var dataByYear = groupedData[this.state.recipients];
+      var list = [];
+
+      Object.keys(dataByYear).sort().reverse().forEach(function(year) {
+        list.push(<ItemList
+            onSaveItem={this.props.onSaveItem}
+            onDeleteItem={this.props.onDeleteItem}
+            data={dataByYear[year]}
+            year={year}
+            key={year}
+            users={this.props.users} />)
+      }.bind(this));
     }
     return <div>View wish list for &nbsp;
       {dropdown}{list}
