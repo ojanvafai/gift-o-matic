@@ -138,7 +138,7 @@ var Item = React.createClass({
       </div>
     } else if (this.props.showCopyButton) {
       buttons = <div className="itemButtons">
-        <button onClick={this.handleCopyToCurrentYear} title='copy to current year'>⎘</button>
+        <button onClick={this.handleCopyToCurrentYear} title='copy to current year'>©</button>
         {deleteButton}
       </div>
     } else {
