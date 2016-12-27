@@ -1,3 +1,4 @@
+import datetime
 import json
 import webapp2
 
@@ -72,9 +73,14 @@ class SaveItem(webapp2.RequestHandler):
     data = json.loads(raw_data)
 
     key = data.get('key')
+
     if key:
       ndb_key = ndb.Key(urlsafe=key)
       old_item = ndb_key.get()
+
+      if not old_item.created:
+        old_item.created = datetime.date(2016, 1, 1)
+
       if old_item:
         item = old_item
 
@@ -83,6 +89,11 @@ class SaveItem(webapp2.RequestHandler):
       quantity = int(quantity_string)
     except ValueError as e:
       quantity = 0
+
+    created = data.get('created')
+    if created:
+      parts = created.split('-')
+      item.created = datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
 
     item.quantity = quantity
     item.recipients = data.get('recipients', [])

@@ -13,7 +13,7 @@ var ItemList = React.createClass({
       return true;
 
     var date = new Date();
-    if (date.getMonth() == 11 && date.getDate() > 25)
+    if (date.getMonth() == 11 && date.getDate() > 24)
       return true;
 
     return false;

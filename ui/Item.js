@@ -58,6 +58,23 @@ var Item = React.createClass({
 
     this.props.onSaveItem(data);
   },
+  handleCopyToCurrentYear: function() {
+    var data = new ItemData(this.props.data);
+
+    // Erase the key so it copies instead of moving.
+    data.key = null
+
+    var currentUser = this.props.users.current_user;
+    data.purchasers = [];
+
+    var date = new Date();
+    if (date.getMonth() == 11 && date.getDate() > 24)
+      data.created = (date.getFullYear() + 1) + '-1-1'
+    else
+      data.created = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+    this.props.onSaveItem(data);
+  },
   handleEdit: function(event) {
     this.setState({editing: true});
   },
@@ -121,7 +138,7 @@ var Item = React.createClass({
       </div>
     } else if (this.props.showCopyButton) {
       buttons = <div className="itemButtons">
-        <button onClick={this.handleUnBuy} title='copy to current year'>⎘</button>
+        <button onClick={this.handleCopyToCurrentYear} title='copy to current year'>⎘</button>
         {deleteButton}
       </div>
     } else {
